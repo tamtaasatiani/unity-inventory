@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c22f5b767e62f954d9d8c0f709d6c57f, type: 3}
+  m_Name: Rapier
+  m_EditorClassIdentifier: 
+  data:
+    name: rapier
+    displayName: Rapier
+    description: A light and sleek finesse weapon. Very good for heroes that are
+      light on their feet.
+    icon: {fileID: 4159464248734297609, guid: 164236267a05c9e4b8ab80f3606f0b02, type: 3}
+  weaponData:
+    damage: 20

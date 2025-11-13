@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Item
+namespace Items
 {
     [System.Serializable]
     public class ItemData
@@ -12,4 +12,9 @@ namespace Item
         [SerializeField] private Sprite icon;
     }
 
+    [System.Serializable]
+    public class WeaponData
+    {
+        [SerializeField] private int damage;
+    }
 }

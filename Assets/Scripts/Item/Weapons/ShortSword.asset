@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: ShortSword
   m_EditorClassIdentifier: 
   data:
-    name: ShortSword
-    displayName: 
-    description: 
-    icon: {fileID: 0}
-  _damage: 422
+    name: short-sword
+    displayName: Short Sword
+    description: A short, light sword. Perfect for beginner heroes.
+    icon: {fileID: -2694947211715326731, guid: 164236267a05c9e4b8ab80f3606f0b02, type: 3}
+  weaponData:
+    damage: 12

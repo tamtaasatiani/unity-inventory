@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Item
+namespace Items
 {
     [CreateAssetMenu(menuName = "Items/Potion")]
     public class Potion : Item

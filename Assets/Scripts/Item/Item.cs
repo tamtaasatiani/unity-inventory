@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Item
+namespace Items
 {
     public class Item : ScriptableObject
     {

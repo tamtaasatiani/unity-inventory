@@ -1,12 +1,11 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Item
+namespace Items
 {
     [CreateAssetMenu(menuName = "Items/Weapon")]
     public class Weapon : Item
     {
-        [SerializeField] private int _damage;
+        [SerializeField] private WeaponData weaponData;
     }
-
 }
