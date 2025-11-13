@@ -6,5 +6,7 @@ namespace Items
     public class Item : ScriptableObject
     {
         [SerializeField] private ItemData data;
+        
+        public ItemData Data => data;
     }
 }

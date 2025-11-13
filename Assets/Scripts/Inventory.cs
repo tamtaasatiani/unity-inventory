@@ -6,7 +6,9 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
 
-    [SerializeField] private List<Item> items;
+    private List<Item> items = new List<Item>();
+    
+    [SerializeField] private Item item;
     
     private void Awake()
     {
@@ -26,5 +28,15 @@ public class Inventory : MonoBehaviour
     public void RemoveItem(Item item)
     {
         items.Remove(item);
+    }
+
+    public bool ContainsItem(Item item)
+    {
+        return items.Contains(item);
+    }
+    
+    public List<Item> GetItems()
+    {
+        return items;
     }
 }
