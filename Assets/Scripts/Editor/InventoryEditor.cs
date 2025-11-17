@@ -20,7 +20,7 @@ public class InventoryEditor : Editor
             Debug.LogError("InventoryEditor only works with Inventory");
         }
         
-        itemSelectedFromRemoveList = _inventory?.GetItems()[0] != null ? _inventory.GetItems()[0] : ScriptableObject.CreateInstance<Item>();
+        itemSelectedFromRemoveList = !_inventory.IsEmpty() ? _inventory.GetItems()[0] : ScriptableObject.CreateInstance<Item>();
     }
     
     public override void OnInspectorGUI()
@@ -78,7 +78,7 @@ public class InventoryEditor : Editor
     {
         GenericMenu removeItemMenu = new GenericMenu();
         
-        string buttonText = !_inventory.IsEmpty() ? itemSelectedFromRemoveList.Data.Name : "Select Item";
+        string buttonText = itemSelectedFromRemoveList.Data != null ? itemSelectedFromRemoveList.Data.Name : "Select Item";
         if (!GUILayout.Button(buttonText)) return;
         if (_inventory.GetItems().Count == 0) return;
         
