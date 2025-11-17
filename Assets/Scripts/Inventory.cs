@@ -22,9 +22,7 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        int newId = items.Count > 0 ? items[items.Count - 1].Data.Id + 1 : 0;
-        string newName = item.Data.Name + newId;
-        item.Data.InitializeInInventory(newId, newName);
+        if (items.Contains(item)) return;
         items.Add(item);
     }
 
