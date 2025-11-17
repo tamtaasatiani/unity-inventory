@@ -1,49 +1,55 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Items;
 
 public class Inventory : MonoBehaviour
 {
-    public static Inventory instance;
-
-    private List<Item> items = new List<Item>();
+    public static Inventory Instance;
     
     [SerializeField] private Item item;
     
+    private List<Item> _items = new List<Item>();
+
+    public event Action ItemAdded;
+    public event Action ItemRemoved;
+    
     private void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
-            Destroy (instance);
+            Destroy (Instance);
         }
 
-        instance = this;
+        Instance = this;
     }
 
     public void AddItem(Item item)
     {
-        if (items.Contains(item)) return;
-        items.Add(item);
+        if (ContainsItem(item)) return;
+        _items.Add(item);
+        ItemAdded?.Invoke();
     }
 
     public void RemoveItem(Item item)
     {
-        items.Remove(item);
+        _items.Remove(item);
+        ItemRemoved?.Invoke();
     }
 
     public bool ContainsItem(Item item)
     {
-        return items.Contains(item);
+        return _items.Contains(item);
     }
 
     public bool IsEmpty()
     {
-        if  (items.Count == 0) return true;
+        if  (_items.Count == 0) return true;
         return false;
     }
     
     public List<Item> GetItems()
     {
-        return items;
+        return _items;
     }
 }
