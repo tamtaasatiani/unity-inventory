@@ -11,8 +11,8 @@ public class Inventory : MonoBehaviour
     
     private List<Item> _items = new List<Item>();
 
-    public event Action ItemAdded;
-    public event Action ItemRemoved;
+    public event Action<Item> ItemAdded;
+    public event Action<Item> ItemRemoved;
     
     private void Awake()
     {
@@ -28,13 +28,13 @@ public class Inventory : MonoBehaviour
     {
         if (ContainsItem(item)) return;
         _items.Add(item);
-        ItemAdded?.Invoke();
+        ItemAdded?.Invoke(item);
     }
 
     public void RemoveItem(Item item)
     {
         _items.Remove(item);
-        ItemRemoved?.Invoke();
+        ItemRemoved?.Invoke(item);
     }
 
     public bool ContainsItem(Item item)
