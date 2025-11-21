@@ -6,6 +6,8 @@ An Inventory system complete with UI implemented in Unity.
 - User-friendly interfaces for creating items of different kinds
 - Use of scriptable objects for items for better use of memory
 - A clean UI system with scrollers, item selection and item showcasing that works with as many items as designers might need
+- Public, project-wide constants
+- Singleton pattern for the Inventory system
 
 # Planned features
 - Prettier UI
