@@ -18,3 +18,7 @@ An Inventory system complete with UI implemented in Unity.
 # Packages
 Unity packages used by the project
 - Screen Recorder by Unity Technologies Inc | Screenshot and clip recording
+
+# Assets
+Assets used by this project
+- [The Wizard's Store](https://essencia-sentinam.itch.io/the-wizards-store-pixel-fantasy-items-64x64)
