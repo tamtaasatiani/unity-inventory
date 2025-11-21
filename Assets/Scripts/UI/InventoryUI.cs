@@ -47,8 +47,12 @@ namespace UI
 
         private void RemoveView(Item item)
         {
-            displayWindow.HideWindow();
-            _selectedView = null;
+            if (item == _selectedView.Item)
+            {
+                displayWindow.HideWindow();
+                _selectedView.HideBorder();
+                _selectedView = null;
+            }
             
             ItemView destroyView = _itemViews.Find(itemView => itemView.Item == item);
             if (destroyView != null) Destroy(destroyView.gameObject);
