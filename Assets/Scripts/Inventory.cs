@@ -7,7 +7,7 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory Instance;
     
-    [SerializeField] private Item item;
+    [SerializeField] private ItemData item;
     
     private List<Item> _items = new List<Item>();
 
@@ -26,7 +26,7 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        if (ContainsItem(item)) return;
+        //if (ContainsItem(item)) return;
         _items.Add(item);
         ItemAdded?.Invoke(item);
     }
@@ -51,5 +51,10 @@ public class Inventory : MonoBehaviour
     public List<Item> GetItems()
     {
         return _items;
+    }
+
+    public int GetItemCount()
+    {
+        return _items.Count;
     }
 }

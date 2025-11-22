@@ -63,7 +63,7 @@ namespace UI
             if (_selectedView != null) _selectedView.HideBorder();
             _selectedView = view;
             _selectedView.ShowBorder();
-            displayWindow.Initialize(view.Item.Data.Icon, view.Item.Data.DisplayName, view.Item.Data.Description);
+            displayWindow.Initialize(view.Item.Data.NameData.Icon, view.Item.Data.NameData.DisplayName, view.Item.Data.NameData.Description);
             displayWindow.ShowWindow();
         }
     }

@@ -4,8 +4,8 @@ using UnityEngine;
 namespace Items
 {
     [CreateAssetMenu(menuName = "Items/Weapon")]
-    public class Weapon : Item
+    public class WeaponData : ItemData
     {
-        [SerializeField] private WeaponData weaponData;
+        [SerializeField] private StatData weaponData;
     }
 }

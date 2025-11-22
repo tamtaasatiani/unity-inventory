@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Items.Editor
 {
-    [CustomPropertyDrawer(typeof(WeaponData))]
-    public class WeaponDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(StatData))]
+    public class StatDrawer : PropertyDrawer
     {
         private SerializedProperty _damageProperty;
 

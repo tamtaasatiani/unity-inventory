@@ -20,7 +20,7 @@ public class InventoryEditor : Editor
             Debug.LogError("InventoryEditor only works with Inventory");
         }
         
-        itemSelectedFromRemoveList = !_inventory.IsEmpty() ? _inventory.GetItems()[0] : ScriptableObject.CreateInstance<Item>();
+        itemSelectedFromRemoveList = !_inventory.IsEmpty() ? _inventory.GetItems()[0] : new Item(ScriptableObject.CreateInstance<ItemData>(), 0);
     }
     
     public override void OnInspectorGUI()
@@ -46,7 +46,7 @@ public class InventoryEditor : Editor
         {
             if (item == null) return;
             
-            EditorGUILayout.LabelField(item.Data.Name);
+            EditorGUILayout.LabelField(item.UniqueName);
         }
     }
 
@@ -54,12 +54,13 @@ public class InventoryEditor : Editor
     {
         EditorGUILayout.LabelField("Add Item", EditorStyles.boldLabel);
         EditorGUILayout.PropertyField(_itemToAddProperty);
-        Item itemToAdd = _itemToAddProperty.objectReferenceValue as Item;
+        ItemData data = _itemToAddProperty.objectReferenceValue as ItemData;
         //Item itemToAdd = ScriptableObject.CreateInstance<Item>();
 
-        if (GUILayout.Button("Confirm") && itemToAdd != null)
+        if (GUILayout.Button("Confirm") && data != null)
         {
-            _inventory.AddItem(_itemToAddProperty.objectReferenceValue as Item);
+            int id = _inventory.GetItemCount() + 1;
+            _inventory.AddItem(new Item(data, id));
         }
     }
 
@@ -77,8 +78,9 @@ public class InventoryEditor : Editor
     private void GenerateMenu()
     {
         GenericMenu removeItemMenu = new GenericMenu();
-        
-        string buttonText = itemSelectedFromRemoveList.Data != null ? itemSelectedFromRemoveList.Data.Name : "Select Item";
+
+        bool selectedItemHasName = (itemSelectedFromRemoveList.UniqueName != null && itemSelectedFromRemoveList.UniqueName != "0");
+        string buttonText = selectedItemHasName ? itemSelectedFromRemoveList.UniqueName : "Select Item";
         if (!GUILayout.Button(buttonText)) return;
         if (_inventory.GetItems().Count == 0) return;
         
@@ -86,7 +88,7 @@ public class InventoryEditor : Editor
             {
                 if (item == null) return;
                 if (item.Data == null) return;
-                removeItemMenu.AddItem(new GUIContent(item.Data.Name), itemSelectedFromRemoveList.Equals(item), () =>
+                removeItemMenu.AddItem(new GUIContent(item.UniqueName), itemSelectedFromRemoveList.Equals(item), () =>
                 {
                     itemSelectedFromRemoveList = item;
                 });

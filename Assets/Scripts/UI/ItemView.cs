@@ -22,8 +22,8 @@ namespace UI
         public void Initialize(Item item)
         {
             _item = item;
-            icon.sprite = _item.Data.Icon;
-            displayName.text = _item.Data.DisplayName;
+            icon.sprite = _item.Data.NameData.Icon;
+            displayName.text = _item.Data.NameData.DisplayName;
             
             viewButton = GetComponentInChildren<Button>();
             viewButton.onClick.AddListener(() => ViewClicked?.Invoke(this));

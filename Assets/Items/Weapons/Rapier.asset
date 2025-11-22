@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: Rapier
   m_EditorClassIdentifier: 
   data:
-    name: rapier
     displayName: Rapier
-    description: A light and sleek finesse weapon. Very good for heroes that are
-      light on their feet.
+    description: Slick, chick weapon
     icon: {fileID: 4159464248734297609, guid: 164236267a05c9e4b8ab80f3606f0b02, type: 3}
   weaponData:
-    damage: 20
+    damage: 12

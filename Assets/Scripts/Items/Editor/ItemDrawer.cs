@@ -2,10 +2,10 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Items.Editor
+namespace Drawers
 {
-    [CustomPropertyDrawer(typeof(ItemData))]
-    public class ItemDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(NameData))]
+    public class NameDrawer : PropertyDrawer
     {
         private SerializedProperty _nameProperty;
         
@@ -26,10 +26,7 @@ namespace Items.Editor
             Rect iconPosition = new Rect(EditorGUIUtility.currentViewWidth - squareSide, position.y + EditorGUIUtility.singleLineHeight, squareSide, squareSide);
             _iconProperty.objectReferenceValue = EditorGUI.ObjectField(iconPosition, _iconProperty.objectReferenceValue, typeof(Sprite), false);
             
-            Rect namePosition =  new Rect(position.x, iconPosition.y + iconPosition.height + EditorGUIUtility.singleLineHeight / 2, position.width, EditorGUIUtility.singleLineHeight);
-            _nameProperty.stringValue = EditorGUI.TextField(namePosition, new GUIContent("Name"), _nameProperty.stringValue);
-            
-            Rect displayNamePosition = new Rect(position.x, namePosition.y + namePosition.height + EditorGUIUtility.singleLineHeight,  position.width, EditorGUIUtility.singleLineHeight);
+            Rect displayNamePosition = new Rect(position.x, iconPosition.y + iconPosition.height + EditorGUIUtility.singleLineHeight,  position.width, EditorGUIUtility.singleLineHeight);
             _displayNameProperty.stringValue = EditorGUI.TextField(displayNamePosition, new GUIContent("Display Name"), _displayNameProperty.stringValue);
             
             Rect descriptionPosition = new Rect(position.x, displayNamePosition.y + displayNamePosition.height + EditorGUIUtility.singleLineHeight / 3, position.width, EditorGUIUtility.singleLineHeight * 2);
