@@ -23,6 +23,7 @@ namespace UI
         {
             _item = item;
             icon.sprite = _item.Data.NameData.Icon;
+            icon.SetNativeSize();
             displayName.text = _item.Data.NameData.DisplayName;
             
             viewButton = GetComponentInChildren<Button>();

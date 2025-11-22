@@ -131,6 +131,7 @@ MonoBehaviour:
   icon: {fileID: 250937504084445284}
   displayName: {fileID: 6629005656830623865}
   border: {fileID: 6236182452533886977}
+  viewButton: {fileID: 752315415936934302}
 --- !u!114 &752315415936934302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,8 +330,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Display Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e3ba99bfd1589884fb5909fb21d0b181, type: 2}
+  m_sharedMaterial: {fileID: -1395533994176078286, guid: e3ba99bfd1589884fb5909fb21d0b181, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

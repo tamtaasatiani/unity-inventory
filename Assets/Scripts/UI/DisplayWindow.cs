@@ -14,6 +14,9 @@ public class DisplayWindow : MonoBehaviour
         _image.sprite = image;
         _name.text = name;
         _description.text = description;
+        
+        //float height = _image.CalculateLayoutInputVertical();
+        //_image.SetNativeSize();
     }
     
     public void ShowWindow()
