@@ -15,6 +15,6 @@ MonoBehaviour:
   data:
     displayName: Rapier
     description: Sleek, chick weapon
-    icon: {fileID: 4159464248734297609, guid: 164236267a05c9e4b8ab80f3606f0b02, type: 3}
+    icon: {fileID: 1968975580, guid: 097928faf425a1646a317e2bfd346595, type: 3}
   weaponData:
     damage: 12

@@ -15,6 +15,6 @@ MonoBehaviour:
   data:
     displayName: Queensguard
     description: Sharp, elegant weapon used by the guard of the almighty Queen
-    icon: {fileID: -6684995053064811417, guid: 164236267a05c9e4b8ab80f3606f0b02, type: 3}
+    icon: {fileID: 1075056441852591851, guid: 097928faf425a1646a317e2bfd346595, type: 3}
   weaponData:
     damage: 40
