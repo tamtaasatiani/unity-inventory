@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c22f5b767e62f954d9d8c0f709d6c57f, type: 3}
-  m_Name: Rapier
+  m_Name: Queensguard
   m_EditorClassIdentifier: 
   data:
-    displayName: Rapier
-    description: Sleek, chick weapon
-    icon: {fileID: 4159464248734297609, guid: 164236267a05c9e4b8ab80f3606f0b02, type: 3}
+    displayName: Queensguard
+    description: Sharp, elegant weapon used by the guard of the almighty Queen
+    icon: {fileID: -6684995053064811417, guid: 164236267a05c9e4b8ab80f3606f0b02, type: 3}
   weaponData:
-    damage: 12
+    damage: 40
