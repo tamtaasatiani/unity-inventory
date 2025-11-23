@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c22f5b767e62f954d9d8c0f709d6c57f, type: 3}
-  m_Name: Rapier
+  m_Script: {fileID: 11500000, guid: 20329c9f2f87c7a4a9a34da0b123ff22, type: 3}
+  m_Name: ManaPotion
   m_EditorClassIdentifier: 
   data:
-    displayName: Rapier
-    description: Sleek, chick weapon
-    icon: {fileID: -1343229908176888562, guid: 097928faf425a1646a317e2bfd346595, type: 3}
-  weaponData:
-    damage: 12
+    displayName: Mana potion
+    description: Take a gulp and get back to casting!
+    icon: {fileID: 6110587517729746411, guid: a7ba737227d60e5419d395212a752c38, type: 3}
