@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Items;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -11,8 +12,8 @@ namespace UI
         
         [Header("UI Elements")]
         [SerializeField] private GameObject scrollViewContent;
-
         [SerializeField] private DisplayWindow displayWindow;
+        [SerializeField] private Button dropButton;
 
         private List<ItemView> _itemViews = new List<ItemView>();
         private ItemView _selectedView;
@@ -21,6 +22,9 @@ namespace UI
         {
             Inventory.Instance.ItemAdded += AddView;
             Inventory.Instance.ItemRemoved += RemoveView;
+            
+            if (dropButton == null) Debug.LogError("Drop Button is null");
+            dropButton.onClick.AddListener(() => DropItem(_selectedView.Item));
         }
 
         private void OnDestroy()
@@ -32,6 +36,8 @@ namespace UI
             {
                 view.ViewClicked -= HandleViewClicked;
             }
+            
+            if (dropButton != null) dropButton.onClick.AddListener(() => DropItem(_selectedView.Item));
         }
 
         private void AddView(Item item)
@@ -65,6 +71,11 @@ namespace UI
             _selectedView.ShowBorder();
             displayWindow.Initialize(view.Item.Data.NameData.Icon, view.Item.Data.NameData.DisplayName, view.Item.Data.NameData.Description);
             displayWindow.ShowWindow();
+        }
+
+        private void DropItem(Item item)
+        {
+            Inventory.Instance.RemoveItem(item);
         }
     }
 }
