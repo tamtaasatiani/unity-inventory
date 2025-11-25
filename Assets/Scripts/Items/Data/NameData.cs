@@ -1,12 +1,12 @@
 using UnityEngine;
+using BetterAttributes;
 
 [System.Serializable]
 public class NameData
 {
-    
+    [SerializeField, BetterIcon] private Sprite icon;
     [SerializeField] private string displayName;
     [SerializeField] private string description;
-    [SerializeField] private Sprite icon;
     
     public string DisplayName { get => displayName; private set => displayName = value; }
     public string Description { get => description; private set => description = value; }
@@ -16,5 +16,5 @@ public class NameData
 [System.Serializable]
 public class StatData
 {
-    [SerializeField] private int damage;
+    [SerializeField, BetterSlider(Constants.MIN_DAMAGE, Constants.MAX_DAMAGE)] private int damage;
 }
