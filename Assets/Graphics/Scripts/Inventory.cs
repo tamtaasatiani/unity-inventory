@@ -3,26 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Items;
 
-public class Inventory : MonoBehaviour
+public class Inventory : SingletonMonobehaviour<Inventory>
 {
-    public static Inventory Instance;
-    
     [SerializeField] private ItemData item;
     
     private List<Item> _items = new List<Item>();
 
     public event Action<Item> ItemAdded;
     public event Action<Item> ItemRemoved;
-    
-    private void Awake()
-    {
-        if (Instance != null)
-        {
-            Destroy (Instance);
-        }
-
-        Instance = this;
-    }
 
     public void AddItem(Item item)
     {
