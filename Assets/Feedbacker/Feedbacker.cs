@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class Feedbacker : MonoBehaviour
 {
-    private List<Feedback> _feedbacks;
+    [SerializeField] private List<Feedback> _feedbacks =  new List<Feedback>();
 
+    public List<Feedback> Feedbacks {get {return _feedbacks;} private set { _feedbacks = value; } }
+    
     public void Fire()
     {
         foreach (var feedback in _feedbacks)
@@ -13,12 +15,23 @@ public class Feedbacker : MonoBehaviour
         }
     }
     
-    private void AddFeedback(Feedback feedback)
+    public bool IsEmpty()
+    {
+        if (_feedbacks.Count == 0) return true;
+        return false;
+    }
+
+    public void AddFeedback(SoundFeedback feedback)
     {
         _feedbacks.Add(feedback);
     }
     
-    private void RemoveFeedback(Feedback feedback)
+    public void AddFeedback(Feedback feedback)
+    {
+        _feedbacks.Add(feedback);
+    }
+    
+    public void RemoveFeedback(Feedback feedback)
     {
         _feedbacks.Remove(feedback);
     }
