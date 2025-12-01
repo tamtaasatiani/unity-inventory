@@ -1,11 +1,26 @@
-public class Feedback
-{
-    protected Feedbacker _feedbacker;
+using UnityEngine;
 
-    public Feedback(Feedbacker feedbacker)
+namespace Feedbacker
+{
+    [System.Serializable]
+    public class Feedback : ScriptableObject
     {
-        _feedbacker = feedbacker;
-    }
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private AudioClip _audioClip;
+        
+        protected bool _removeFlag = false;
+        protected Feedbacker _feedbacker;
     
-    public virtual void Fire() {}
+        public bool RemoveFlag {get => _removeFlag; set => _removeFlag = value; }
+
+        public Feedback(Feedbacker feedbacker)
+        {
+            _feedbacker = feedbacker;
+        }
+
+        public virtual void Fire()
+        {
+            Debug.Log("Fired parent feedback class");
+        }
+    }
 }

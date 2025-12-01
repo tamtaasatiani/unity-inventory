@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
 
-public class SoundFeedback : Feedback
+namespace Feedbacker
 {
-    private AudioSource _audioSource;
-    private AudioClip _audioClip;
-
-    public SoundFeedback(Feedbacker feedbacker) : base(feedbacker)
+    public class SoundFeedback : Feedback
     {
-        _feedbacker = feedbacker;
-    }
+        [SerializeField] private GameObject testField;
+            
+        public SoundFeedback(Feedbacker feedbacker) : base(feedbacker)
+        {
+            _feedbacker = feedbacker;
+        }
     
-    public override void Fire()
-    {
-        _audioSource.Play();
+        public override void Fire()
+        {
+            Debug.Log("Fired sound feedback class");
+            //_audioSource.Play();
+        }
     }
 }
