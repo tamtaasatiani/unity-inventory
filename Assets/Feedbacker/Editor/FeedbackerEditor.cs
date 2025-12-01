@@ -23,20 +23,23 @@ namespace Feedbacker.Editor
         private FeedbackType _selectedFeedbackType;
         private Feedbacker _feedbacker;
 
-        private Dictionary<FeedbackType, Action> _feedbackTypes;
-        //{
-        //    [FeedbackType.Sound] = () => _feedbacker.AddSoundFeedback()
-        //};
+        private Dictionary<FeedbackType, Type> _feedbackTypes;
+
+        private SerializedProperty feedbacksProperty;
 
         private void OnEnable()
         {
+            //_feedbacker.RemoveAllFeedbacks();
             _feedbacker = target as Feedbacker;
             if (_feedbacker == null) Debug.LogError("Feedbacker missing");
             
-            _feedbackTypes =  new Dictionary<FeedbackType, Action>()
+            _feedbackTypes =  new Dictionary<FeedbackType, Type>()
             {
-                [FeedbackType.Sound] = () => _feedbacker.AddSoundFeedback()
+                [FeedbackType.Sound] = typeof(SoundFeedback),
+                [FeedbackType.Animation] = typeof(AnimationFeedback)
             };
+            
+            feedbacksProperty = serializedObject.FindProperty("_feedbacks");
         }
         
         public override void OnInspectorGUI()
@@ -49,8 +52,8 @@ namespace Feedbacker.Editor
             GenerateMenu();
             if (GUILayout.Button("Add Feedback"))
             {
-                _feedbackTypes[_selectedFeedbackType]?.Invoke();
-                _feedbacker.GetFeedbacks()[0].Fire();
+                AddFeedback(feedbacksProperty, _feedbackTypes[_selectedFeedbackType]);
+                //_feedbacker.GetFeedbacks()[0].Fire();
             }
             GUILayout.EndHorizontal();
             
@@ -67,19 +70,40 @@ namespace Feedbacker.Editor
                 return;
             }
 
-            foreach (Feedback feedback in _feedbacker.Feedbacks)
+            int removeIndex = -1;
+
+            for (int i = 0; i < _feedbacker.Feedbacks.Count; i++)
             {
-                if (feedback == null) return;
+                if (_feedbacker.Feedbacks[i] == null) continue;
                 GUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField(feedback.GetType().Name);
+                //EditorGUILayout.LabelField(_feedbacker.Feedbacks[i].GetType().Name);
+                EditorGUILayout.PropertyField(feedbacksProperty.GetArrayElementAtIndex(i), new GUIContent(_feedbacker.Feedbacks[i].GetType().Name), true);
                 if (GUILayout.Button("X"))
                 {
-                    feedback.RemoveFlag = true;
+                    removeIndex = i;
                 }
                 GUILayout.EndHorizontal();
             }
 
-            _feedbacker.RemoveFlaggedFeedbacks();
+            RemoveFeedback(feedbacksProperty, removeIndex);
+        }
+
+        private void AddFeedback(SerializedProperty fProperty, Type type)
+        {
+            int newIndex = fProperty.arraySize;
+            fProperty.InsertArrayElementAtIndex(newIndex);
+            
+            SerializedProperty newItemProp = feedbacksProperty.GetArrayElementAtIndex(newIndex);
+            newItemProp.managedReferenceValue = Activator.CreateInstance(type);
+        }
+        
+        private void RemoveFeedback(SerializedProperty fProperty, int index)
+        {
+            if (index < 0 || index >= _feedbacker.Feedbacks.Count) return;
+            fProperty.DeleteArrayElementAtIndex(index);
+            //fProperty.DeleteArrayElementAtIndex(index);
+            
+            serializedObject.ApplyModifiedProperties();
         }
         
         private void GenerateMenu()

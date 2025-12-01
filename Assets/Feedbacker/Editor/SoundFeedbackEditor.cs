@@ -1,5 +1,4 @@
-using UnityEditor;
-
+/*
 namespace Feedbacker.Editor
 {
     [CustomEditor(typeof(SoundFeedback))]
@@ -22,3 +21,4 @@ namespace Feedbacker.Editor
         }
     }
 }
+*/

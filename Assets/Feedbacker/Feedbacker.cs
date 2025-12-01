@@ -8,7 +8,7 @@ namespace Feedbacker
     [AddComponentMenu("Feedbacker/Feedbacker")]
     public class Feedbacker : MonoBehaviour
     {
-        [SerializeField] private List<Feedback> _feedbacks =  new List<Feedback>();
+        [SerializeReference] private List<Feedback> _feedbacks =  new List<Feedback>();
 
         public List<Feedback> Feedbacks {get {return _feedbacks;} private set { _feedbacks = value; } }
     
@@ -26,11 +26,12 @@ namespace Feedbacker
             return false;
         }
 
+        /*
         public void AddSoundFeedback()
         {
             SoundFeedback newFeedback = new SoundFeedback(this);
             _feedbacks.Add(newFeedback);
-            EditorUtility.SetDirty(newFeedback);
+            //EditorUtility.SetDirty(newFeedback);
         }
     
         public void AddFeedback(Feedback feedback)
@@ -42,15 +43,21 @@ namespace Feedbacker
         {
             _feedbacks.Remove(feedback);
         }
+        */
 
         public List<Feedback> GetFeedbacks()
         {
             return _feedbacks;
         }
 
-        public void RemoveFlaggedFeedbacks()
+        //public List<int> ReturnFlaggedFeedbacks()
+        //{
+        //    return _feedbacks.Where(feedback => feedback.RemoveFlag == true).ToList().ForEach(feedback => RemoveFeedback(feedback));
+        //}
+
+        public void RemoveAllFeedbacks()
         {
-            _feedbacks.Where(feedback => feedback.RemoveFlag == true).ToList().ForEach(feedback => RemoveFeedback(feedback));
+            _feedbacks.Clear();
         }
     }
 
