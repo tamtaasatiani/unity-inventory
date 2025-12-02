@@ -15,11 +15,6 @@ namespace Feedbacker.Editor
             Animation
         }
         
-        //private Dictionary<FeedbackType, Type> _feedbackList = new Dictionary<FeedbackType, Type>()
-        //{
-        //    [FeedbackType.Sound] = typeof(SoundFeedback)
-        //};
-        
         private FeedbackType _selectedFeedbackType;
         private Feedbacker _feedbacker;
 
@@ -53,7 +48,6 @@ namespace Feedbacker.Editor
             if (GUILayout.Button("Add Feedback"))
             {
                 AddFeedback(feedbacksProperty, _feedbackTypes[_selectedFeedbackType]);
-                //_feedbacker.GetFeedbacks()[0].Fire();
             }
             GUILayout.EndHorizontal();
             
@@ -76,7 +70,6 @@ namespace Feedbacker.Editor
             {
                 if (_feedbacker.Feedbacks[i] == null) continue;
                 GUILayout.BeginHorizontal();
-                //EditorGUILayout.LabelField(_feedbacker.Feedbacks[i].GetType().Name);
                 EditorGUILayout.PropertyField(feedbacksProperty.GetArrayElementAtIndex(i), new GUIContent(_feedbacker.Feedbacks[i].GetType().Name), true);
                 if (GUILayout.Button("X"))
                 {
@@ -103,7 +96,6 @@ namespace Feedbacker.Editor
         {
             if (index < 0 || index >= _feedbacker.Feedbacks.Count) return;
             fProperty.DeleteArrayElementAtIndex(index);
-            //fProperty.DeleteArrayElementAtIndex(index);
             
             serializedObject.ApplyModifiedProperties();
         }
