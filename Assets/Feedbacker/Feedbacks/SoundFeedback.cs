@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using BetterAttributes;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,6 +9,7 @@ namespace Feedbacker
     public class SoundFeedback : Feedback
     {
         [SerializeField] private AudioClip audio;
+        [SerializeField, BetterSlider(0, 100)] private int volume;
         
         [SerializeField, HideInInspector] private AudioSource audioSource;
 
@@ -19,6 +21,7 @@ namespace Feedbacker
         public SoundFeedback(Feedbacker feedbacker) : base(feedbacker)
         {
             audioSource = feedbacker.gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
             EditorUtility.SetDirty(audioSource);
         }
         
@@ -28,6 +31,7 @@ namespace Feedbacker
             if (audioSource.clip == null)
                 audioSource.clip = audio;
             
+            audioSource.volume = volume / 100f;
             audioSource.Play();
         }
 
