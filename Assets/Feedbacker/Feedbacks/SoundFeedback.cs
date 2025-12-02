@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Feedbacker
 {
@@ -7,7 +8,8 @@ namespace Feedbacker
     public class SoundFeedback : Feedback
     {
         [SerializeField] private AudioClip audio;
-        [SerializeField] private AudioSource _audioSource;
+        
+        [SerializeField, HideInInspector] private AudioSource audioSource;
 
         public SoundFeedback()
         {
@@ -16,22 +18,22 @@ namespace Feedbacker
         
         public SoundFeedback(Feedbacker feedbacker) : base(feedbacker)
         {
-            _audioSource = feedbacker.gameObject.AddComponent<AudioSource>();
-            EditorUtility.SetDirty(_audioSource);
+            audioSource = feedbacker.gameObject.AddComponent<AudioSource>();
+            EditorUtility.SetDirty(audioSource);
         }
         
         public override void Play()
         {
             if (audio == null) return;
-            if (_audioSource.clip == null)
-                _audioSource.clip = audio;
+            if (audioSource.clip == null)
+                audioSource.clip = audio;
             
-            _audioSource.Play();
+            audioSource.Play();
         }
 
         ~SoundFeedback()
         {
-            _audioSource.Stop();
+            audioSource.Stop();
             //Destroy(_audioSource);
         }
     }
