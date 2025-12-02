@@ -14,11 +14,23 @@ namespace Feedbacker.Editor
             Sound,
             Animation
         }
+
+        struct FeedbackParameter
+        {
+            public Type type;
+            public Color color;
+
+            public FeedbackParameter(Type type, Color color)
+            {
+                this.type = type;
+                this.color = color;
+            }
+        }
         
         private FeedbackType _selectedFeedbackType;
         private Feedbacker _feedbacker;
 
-        private Dictionary<FeedbackType, Type> _feedbackTypes;
+        private Dictionary<FeedbackType, FeedbackParameter> _feedbackTypes;
 
         private SerializedProperty feedbacksProperty;
 
@@ -28,10 +40,10 @@ namespace Feedbacker.Editor
             _feedbacker = target as Feedbacker;
             if (_feedbacker == null) Debug.LogError("Feedbacker missing");
             
-            _feedbackTypes =  new Dictionary<FeedbackType, Type>()
+            _feedbackTypes =  new Dictionary<FeedbackType, FeedbackParameter>()
             {
-                [FeedbackType.Sound] = typeof(SoundFeedback),
-                [FeedbackType.Animation] = typeof(AnimationFeedback)
+                [FeedbackType.Sound] = new FeedbackParameter(typeof(SoundFeedback), new Color(120/255f, 44/255f, 212/255f, 1f)),
+                [FeedbackType.Animation] = new FeedbackParameter(typeof(AnimationFeedback), new Color(212/255f, 44/255f, 212/209f, 1f))
             };
             
             feedbacksProperty = serializedObject.FindProperty("_feedbacks");
@@ -47,7 +59,7 @@ namespace Feedbacker.Editor
             GenerateMenu();
             if (GUILayout.Button("Add Feedback"))
             {
-                AddFeedback(feedbacksProperty, _feedbackTypes[_selectedFeedbackType]);
+                AddFeedback(feedbacksProperty, _feedbackTypes[_selectedFeedbackType].type);
             }
             GUILayout.EndHorizontal();
             
@@ -70,6 +82,8 @@ namespace Feedbacker.Editor
             {
                 if (_feedbacker.Feedbacks[i] == null) continue;
                 GUILayout.BeginHorizontal();
+                FeedbackParameter parameter = _feedbackTypes.Where(parameter => parameter.Value.type == _feedbacker.Feedbacks[i].GetType()).FirstOrDefault().Value;
+                EditorGUI.DrawRect(new Rect(new Vector2(0, 0), new Vector2(3, EditorGUIUtility.singleLineHeight)), parameter.color);
                 EditorGUILayout.PropertyField(feedbacksProperty.GetArrayElementAtIndex(i), new GUIContent(_feedbacker.Feedbacks[i].GetType().Name), true);
                 if (GUILayout.Button("X"))
                 {
