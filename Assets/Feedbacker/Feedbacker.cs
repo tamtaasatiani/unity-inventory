@@ -12,11 +12,11 @@ namespace Feedbacker
 
         public List<Feedback> Feedbacks {get {return _feedbacks;} private set { _feedbacks = value; } }
     
-        public void Fire()
+        public void Play()
         {
             foreach (var feedback in _feedbacks)
             {
-                feedback.Fire();
+                feedback.Play();
             }
         }
     

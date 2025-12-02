@@ -93,8 +93,10 @@ namespace Feedbacker.Editor
             int newIndex = fProperty.arraySize;
             fProperty.InsertArrayElementAtIndex(newIndex);
             
+            object[] args = {_feedbacker};
+            
             SerializedProperty newItemProp = feedbacksProperty.GetArrayElementAtIndex(newIndex);
-            newItemProp.managedReferenceValue = Activator.CreateInstance(type);
+            newItemProp.managedReferenceValue = Activator.CreateInstance(type, args);
         }
         
         private void RemoveFeedback(SerializedProperty fProperty, int index)

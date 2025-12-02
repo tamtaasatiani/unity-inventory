@@ -4,7 +4,17 @@ namespace Feedbacker
 {
     public class AnimationFeedback : Feedback
     {
-        [SerializeReference] private string testStringFeedback;
+        [SerializeField] private Animation _animation;
+        
+        public AnimationFeedback(Feedbacker feedbacker) : base(feedbacker)
+        {
+            
+        }
+
+        public override void Play()
+        {
+            _animation.Play();
+        }
     }
 
 }
