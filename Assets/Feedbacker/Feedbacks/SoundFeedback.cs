@@ -5,7 +5,7 @@ namespace Feedbacker
     [System.Serializable]
     public class SoundFeedback : Feedback
     {
-        [SerializeField] private GameObject testField;
+        [SerializeField] private string testField;
             
         public override void Fire()
         {
