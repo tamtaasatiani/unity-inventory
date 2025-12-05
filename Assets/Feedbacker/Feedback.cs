@@ -19,5 +19,10 @@ namespace Feedbacker
         {
             Debug.Log("Playing parent feedback class");
         }
+
+        public virtual void Destroy()
+        {
+            Debug.Log("Destroying parent feedback class");
+        }
     }
 }

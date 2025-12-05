@@ -34,11 +34,11 @@ namespace Feedbacker
             audioSource.volume = volume / 100f;
             audioSource.Play();
         }
-
-        ~SoundFeedback()
+        
+        public override void Destroy()
         {
             audioSource.Stop();
-            //Destroy(_audioSource);
+            Object.DestroyImmediate(audioSource);
         }
     }
 }

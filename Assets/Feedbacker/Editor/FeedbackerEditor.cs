@@ -83,7 +83,7 @@ namespace Feedbacker.Editor
                 if (_feedbacker.Feedbacks[i] == null) continue;
                 GUILayout.BeginHorizontal();
                 FeedbackParameter parameter = _feedbackTypes.Where(parameter => parameter.Value.type == _feedbacker.Feedbacks[i].GetType()).FirstOrDefault().Value;
-                EditorGUI.DrawRect(new Rect(new Vector2(0, 0), new Vector2(3, EditorGUIUtility.singleLineHeight)), parameter.color);
+                EditorGUI.DrawRect(new Rect(new Vector2(0, EditorGUIUtility.singleLineHeight * 1.2f * (i + 1)), new Vector2(3, EditorGUIUtility.singleLineHeight)), parameter.color);
                 EditorGUILayout.PropertyField(feedbacksProperty.GetArrayElementAtIndex(i), new GUIContent(_feedbacker.Feedbacks[i].GetType().Name), true);
                 if (GUILayout.Button("X"))
                 {
@@ -106,10 +106,14 @@ namespace Feedbacker.Editor
             newItemProp.managedReferenceValue = Activator.CreateInstance(type, args);
         }
         
+        // ReSharper disable Unity.PerformanceAnalysis
         private void RemoveFeedback(SerializedProperty fProperty, int index)
         {
             if (index < 0 || index >= _feedbacker.Feedbacks.Count) return;
+            Feedback fb = fProperty.GetArrayElementAtIndex(index).managedReferenceValue as Feedback;
+            fb.Destroy();
             fProperty.DeleteArrayElementAtIndex(index);
+            //fProperty.DeleteArrayElementAtIndex(index);
             
             serializedObject.ApplyModifiedProperties();
         }
