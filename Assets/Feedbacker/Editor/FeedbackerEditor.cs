@@ -110,8 +110,8 @@ namespace Feedbacker.Editor
         private void RemoveFeedback(SerializedProperty fProperty, int index)
         {
             if (index < 0 || index >= _feedbacker.Feedbacks.Count) return;
-            Feedback fb = fProperty.GetArrayElementAtIndex(index).managedReferenceValue as Feedback;
-            fb.Destroy();
+            //Feedback fb = fProperty.GetArrayElementAtIndex(index).managedReferenceValue as Feedback;
+            //fb.Destroy();
             fProperty.DeleteArrayElementAtIndex(index);
             //fProperty.DeleteArrayElementAtIndex(index);
             

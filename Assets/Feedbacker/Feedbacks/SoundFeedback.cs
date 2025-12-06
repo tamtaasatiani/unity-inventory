@@ -20,9 +20,14 @@ namespace Feedbacker
         
         public SoundFeedback(Feedbacker feedbacker) : base(feedbacker)
         {
-            audioSource = feedbacker.gameObject.AddComponent<AudioSource>();
-            audioSource.playOnAwake = false;
-            EditorUtility.SetDirty(audioSource);
+            bool hasAudioSource = feedbacker.TryGetComponent<AudioSource>(out AudioSource source);
+            audioSource = hasAudioSource ? source : feedbacker.gameObject.AddComponent<AudioSource>();
+            
+            if (!hasAudioSource)
+            {
+                audioSource.playOnAwake = false;
+                EditorUtility.SetDirty(audioSource);
+            }
         }
         
         public override void Play()
@@ -35,10 +40,10 @@ namespace Feedbacker
             audioSource.Play();
         }
         
-        public override void Destroy()
-        {
-            audioSource.Stop();
-            Object.DestroyImmediate(audioSource);
-        }
+        //public override void Destroy()
+        //{
+        //    audioSource.Stop();
+        //    Object.DestroyImmediate(audioSource);
+        //}
     }
 }
