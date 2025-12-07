@@ -32,7 +32,16 @@ namespace Feedbacker
         
         public override void Play()
         {
-            if (audio == null) return;
+            if (audioSource == null)
+            {
+                Debug.LogError("No AudioSource attached");
+                return;
+            }
+            if (audio == null)
+            {
+                Debug.LogError("AudioClip not provided");
+                return;
+            }
             if (audioSource.clip == null)
                 audioSource.clip = audio;
             
