@@ -1,4 +1,5 @@
 ﻿using BetterAttributes;
+using Cysharp.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -30,7 +31,7 @@ namespace Feedbacker
             }
         }
         
-        public override void Play()
+        public override async UniTask Play()
         {
             if (audioSource == null)
             {
@@ -47,6 +48,11 @@ namespace Feedbacker
             
             audioSource.volume = volume / 100f;
             audioSource.Play();
+            
+            while (audioSource.isPlaying)
+            {
+                await UniTask.DelayFrame(1);
+            }
         }
         
         //public override void Destroy()

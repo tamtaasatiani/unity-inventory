@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,12 +14,14 @@ namespace Feedbacker
 
         public List<Feedback> Feedbacks {get {return _feedbacks;} private set { _feedbacks = value; } }
     
-        public void Play()
+        public async UniTask Play(Action callback = null)
         {
             foreach (var feedback in _feedbacks)
             {
-                feedback.Play();
+                await feedback.Play();
             }
+            
+            //Debug.Log("Finished");
         }
     
         public bool IsEmpty()

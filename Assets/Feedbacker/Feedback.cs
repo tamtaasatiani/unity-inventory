@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Feedbacker
@@ -15,9 +16,10 @@ namespace Feedbacker
             
         }
         
-        public virtual void Play()
+        public virtual UniTask Play()
         {
             Debug.LogWarning("Playing parent feedback class");
+            return UniTask.CompletedTask;
         }
     }
 }

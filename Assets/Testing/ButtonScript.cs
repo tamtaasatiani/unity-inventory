@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class ButtonScript : MonoBehaviour
@@ -6,6 +7,9 @@ public class ButtonScript : MonoBehaviour
 
     public void OnClick()
     {
-        _feedbacks.Play();
+        _feedbacks.Play(() =>
+        {
+            Destroy(gameObject);
+        }).Forget();
     }
 }

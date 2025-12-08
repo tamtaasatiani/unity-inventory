@@ -1,4 +1,6 @@
+using Cysharp.Threading.Tasks;
 using UnityEditor;
+using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Feedbacker
@@ -15,7 +17,7 @@ namespace Feedbacker
             if (target == null) return;
         }
 
-        public override void Play()
+        public override async UniTask Play()
         {
             if (target == null)
             {
@@ -28,8 +30,14 @@ namespace Feedbacker
                 Debug.LogWarning("Target requires to have an animator");
                 return;
             }
-            
+
             _animator.Play(clip.name);
+            await UniTask.DelayFrame(1);
+            
+            while (_animator.GetCurrentAnimatorStateInfo(0).IsName(clip.name))
+            {
+                await UniTask.DelayFrame(1);
+            }
         }
         
         private bool AnimatorAvailable()

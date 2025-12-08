@@ -474,10 +474,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9435a29fe46a84fb39dfe54dc2d418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _feedbacks: []
+  _feedbacks:
+  - rid: 4444397720558108674
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 4444397720558108674
+      type: {class: AnimationFeedback, ns: Feedbacker, asm: Assembly-CSharp}
+      data:
+        target: {fileID: 815663876}
+        clip: {fileID: 7400000, guid: 5f24bf8ec38403245b619ca4d0cdcf3f, type: 2}
 --- !u!1 &1162991113
 GameObject:
   m_ObjectHideFlags: 0
