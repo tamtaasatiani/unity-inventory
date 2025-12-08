@@ -18,12 +18,28 @@ namespace Feedbacker.Editor
         struct FeedbackParameter
         {
             public Type type;
-            public Color color;
+            public Texture2D texture;
+            public GUIStyle style;
 
             public FeedbackParameter(Type type, Color color)
             {
+                int width = 4;
+                int height = 16;
+                
                 this.type = type;
-                this.color = color;
+                this.texture = new Texture2D(width, height);
+
+                for (int i = 0; i < width; i++)
+                    for (int j = 0; j < height; j++)
+                        texture.SetPixel(i, j, color);
+                
+                texture.Apply();
+                
+                this.style = new GUIStyle();
+                this.style.fixedWidth = width;
+                this.style.fixedHeight = height;
+                this.style.normal.background = texture;
+                this.style.margin = new RectOffset(0, 0, 4, 0);
             }
         }
         
@@ -43,7 +59,7 @@ namespace Feedbacker.Editor
             _feedbackTypes =  new Dictionary<FeedbackType, FeedbackParameter>()
             {
                 [FeedbackType.Sound] = new FeedbackParameter(typeof(SoundFeedback), new Color(120/255f, 44/255f, 212/255f, 1f)),
-                [FeedbackType.Animation] = new FeedbackParameter(typeof(AnimationFeedback), new Color(212/255f, 44/255f, 212/209f, 1f))
+                [FeedbackType.Animation] = new FeedbackParameter(typeof(AnimationFeedback), new Color(242/255f, 24/255f, 78/209f, 1f))
             };
             
             feedbacksProperty = serializedObject.FindProperty("_feedbacks");
@@ -83,7 +99,8 @@ namespace Feedbacker.Editor
                 if (_feedbacker.Feedbacks[i] == null) continue;
                 GUILayout.BeginHorizontal();
                 FeedbackParameter parameter = _feedbackTypes.Where(parameter => parameter.Value.type == _feedbacker.Feedbacks[i].GetType()).FirstOrDefault().Value;
-                EditorGUI.DrawRect(new Rect(new Vector2(0, EditorGUIUtility.singleLineHeight * 1.2f * (i + 1)), new Vector2(3, EditorGUIUtility.singleLineHeight)), parameter.color);
+                GUILayout.Box(parameter.texture, parameter.style);
+                GUILayout.Space(parameter.texture.width + 8);
                 EditorGUILayout.PropertyField(feedbacksProperty.GetArrayElementAtIndex(i), new GUIContent(_feedbacker.Feedbacks[i].GetType().Name), true);
                 if (GUILayout.Button("X"))
                 {
