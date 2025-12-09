@@ -85,14 +85,14 @@ public class InventoryEditor : Editor
         if (_inventory.GetItems().Count == 0) return;
         
         foreach (Item item in _inventory.GetItems())
+        {
+            if (item == null) return;
+            if (item.Data == null) return;
+            removeItemMenu.AddItem(new GUIContent(item.UniqueName), itemSelectedFromRemoveList.Equals(item), () =>
             {
-                if (item == null) return;
-                if (item.Data == null) return;
-                removeItemMenu.AddItem(new GUIContent(item.UniqueName), itemSelectedFromRemoveList.Equals(item), () =>
-                {
-                    itemSelectedFromRemoveList = item;
-                });
-            }
+                itemSelectedFromRemoveList = item;
+            });
+        }
             
         removeItemMenu.ShowAsContext();
     }
