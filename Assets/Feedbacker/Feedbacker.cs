@@ -16,12 +16,16 @@ namespace Feedbacker
     
         public async UniTask Play(Action callback = null)
         {
+            List<UniTask> tasks = new List<UniTask>();
+            
             foreach (var feedback in _feedbacks)
             {
-                await feedback.Play();
+                tasks.Add(feedback.Play());
             }
-            
-            //Debug.Log("Finished");
+
+            await UniTask.WhenAll(tasks);
+
+            Debug.Log("Finished");
         }
     
         public bool IsEmpty()
