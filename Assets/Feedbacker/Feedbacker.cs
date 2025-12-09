@@ -25,7 +25,7 @@ namespace Feedbacker
 
             await UniTask.WhenAll(tasks);
 
-            Debug.Log("Finished");
+            callback?.Invoke();
         }
     
         public bool IsEmpty()
