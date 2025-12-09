@@ -1,3 +1,4 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.Animations;
@@ -17,7 +18,7 @@ namespace Feedbacker
             if (target == null) return;
         }
 
-        public override async UniTask Play()
+        public override async UniTask Play(CancellationToken cancellationToken = default)
         {
             if (target == null)
             {
@@ -36,6 +37,7 @@ namespace Feedbacker
             
             while (_animator.GetCurrentAnimatorStateInfo(0).IsName(clip.name))
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 await UniTask.DelayFrame(1);
             }
         }

@@ -1,36 +1,38 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace Feedbacker
 {
     [AddComponentMenu("Feedbacker/Feedbacker")]
     public class Feedbacker : MonoBehaviour
     {
-        [SerializeReference] private List<Feedback> _feedbacks =  new List<Feedback>();
 
-        public List<Feedback> Feedbacks {get {return _feedbacks;} private set { _feedbacks = value; } }
+        [SerializeReference] private List<Feedback> feedbacks =  new List<Feedback>();
+
+        public List<Feedback> Feedbacks {get {return feedbacks;} private set { feedbacks = value; } }
     
-        public async UniTask Play(Action callback = null)
+        public async UniTask Play(CancellationToken cancellationToken = default, Action callback = null)
         {
-            List<UniTask> tasks = new List<UniTask>();
+            List<UniTask> tasks = ListPool<UniTask>.Get();
             
-            foreach (var feedback in _feedbacks)
+            foreach (var feedback in feedbacks)
             {
-                tasks.Add(feedback.Play());
+                tasks.Add(feedback.Play(cancellationToken));
             }
 
             await UniTask.WhenAll(tasks);
-
             callback?.Invoke();
         }
     
         public bool IsEmpty()
         {
-            if (_feedbacks.Count == 0) return true;
+            if (feedbacks.Count == 0) return true;
             return false;
         }
 
@@ -55,7 +57,7 @@ namespace Feedbacker
 
         public List<Feedback> GetFeedbacks()
         {
-            return _feedbacks;
+            return feedbacks;
         }
 
         //public List<int> ReturnFlaggedFeedbacks()
@@ -65,7 +67,7 @@ namespace Feedbacker
 
         public void RemoveAllFeedbacks()
         {
-            _feedbacks.Clear();
+            feedbacks.Clear();
         }
     }
 

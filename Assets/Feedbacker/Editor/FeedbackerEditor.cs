@@ -48,7 +48,7 @@ namespace Feedbacker.Editor
 
         private Dictionary<FeedbackType, FeedbackParameter> _feedbackTypes;
 
-        private SerializedProperty feedbacksProperty;
+        private SerializedProperty _feedbacksProperty;
 
         private void OnEnable()
         {
@@ -62,7 +62,7 @@ namespace Feedbacker.Editor
                 [FeedbackType.Animation] = new FeedbackParameter(typeof(AnimationFeedback), new Color(242/255f, 24/255f, 78/209f, 1f))
             };
             
-            feedbacksProperty = serializedObject.FindProperty("_feedbacks");
+            _feedbacksProperty = serializedObject.FindProperty("feedbacks");
         }
         
         public override void OnInspectorGUI()
@@ -75,7 +75,7 @@ namespace Feedbacker.Editor
             GenerateMenu();
             if (GUILayout.Button("Add Feedback"))
             {
-                AddFeedback(feedbacksProperty, _feedbackTypes[_selectedFeedbackType].type);
+                AddFeedback(_feedbacksProperty, _feedbackTypes[_selectedFeedbackType].type);
             }
             GUILayout.EndHorizontal();
             
@@ -101,7 +101,7 @@ namespace Feedbacker.Editor
                 FeedbackParameter parameter = _feedbackTypes.Where(parameter => parameter.Value.type == _feedbacker.Feedbacks[i].GetType()).FirstOrDefault().Value;
                 GUILayout.Box(parameter.texture, parameter.style);
                 GUILayout.Space(parameter.texture.width + 8);
-                EditorGUILayout.PropertyField(feedbacksProperty.GetArrayElementAtIndex(i), new GUIContent(_feedbacker.Feedbacks[i].GetType().Name), true);
+                EditorGUILayout.PropertyField(_feedbacksProperty.GetArrayElementAtIndex(i), new GUIContent(_feedbacker.Feedbacks[i].GetType().Name), true);
                 if (GUILayout.Button("X"))
                 {
                     removeIndex = i;
@@ -109,7 +109,7 @@ namespace Feedbacker.Editor
                 GUILayout.EndHorizontal();
             }
 
-            RemoveFeedback(feedbacksProperty, removeIndex);
+            RemoveFeedback(_feedbacksProperty, removeIndex);
         }
 
         private void AddFeedback(SerializedProperty fProperty, Type type)
@@ -119,7 +119,7 @@ namespace Feedbacker.Editor
             
             object[] args = {_feedbacker};
             
-            SerializedProperty newItemProp = feedbacksProperty.GetArrayElementAtIndex(newIndex);
+            SerializedProperty newItemProp = _feedbacksProperty.GetArrayElementAtIndex(newIndex);
             newItemProp.managedReferenceValue = Activator.CreateInstance(type, args);
         }
         

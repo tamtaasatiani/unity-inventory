@@ -1,4 +1,5 @@
-﻿using BetterAttributes;
+﻿using System.Threading;
+using BetterAttributes;
 using Cysharp.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
@@ -31,7 +32,7 @@ namespace Feedbacker
             }
         }
         
-        public override async UniTask Play()
+        public override async UniTask Play(CancellationToken cancellationToken = default)
         {
             if (audioSource == null)
             {
@@ -51,6 +52,7 @@ namespace Feedbacker
             
             while (audioSource.isPlaying)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 await UniTask.DelayFrame(1);
             }
         }
