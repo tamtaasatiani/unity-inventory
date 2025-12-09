@@ -25,6 +25,7 @@ namespace Feedbacker
             }
 
             await UniTask.WhenAll(tasks);
+            ListPool<UniTask>.Release(tasks);
             callback?.Invoke();
         }
     
