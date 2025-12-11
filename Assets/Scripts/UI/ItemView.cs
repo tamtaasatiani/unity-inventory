@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Items;
 using TMPro;
 using UnityEngine;
@@ -12,8 +14,11 @@ namespace UI
         [SerializeField] private TextMeshProUGUI displayName;
         [SerializeField] private GameObject border;
         [SerializeField] private Button viewButton;
+
+        [SerializeField] private Feedbacker.Feedbacker feedbacks;
         
         private Item _item;
+        private CancellationTokenSource _cancellationTokenSource;
         
         public Item Item {get => _item; set => _item = value;}
 
@@ -28,8 +33,12 @@ namespace UI
             viewButton.onClick.AddListener(() => ViewClicked?.Invoke(this));
         }
 
-        public void ShowBorder()
+        public void ViewClickedEffects()
         {
+            _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(
+                destroyCancellationToken,
+                Application.exitCancellationToken);
+            feedbacks.Play(_cancellationTokenSource.Token).Forget();
             border.SetActive(true);
         }
 
