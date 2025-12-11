@@ -66,7 +66,7 @@ namespace UI
 
         private void HandleViewClicked(ItemView view)
         {
-            if (_selectedView != null) _selectedView.HideBorder();
+            if (_selectedView != null && _selectedView != view) _selectedView.HideBorder();
             _selectedView = view;
             displayWindow.Initialize(view.Item.Data.NameData.Icon, view.Item.Data.NameData.DisplayName, view.Item.Data.NameData.Description);
             displayWindow.ShowWindow();
