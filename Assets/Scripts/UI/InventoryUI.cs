@@ -23,8 +23,7 @@ namespace UI
             Inventory.Instance.ItemAdded += AddView;
             Inventory.Instance.ItemRemoved += RemoveView;
             
-            if (dropButton == null) Debug.LogError("Drop Button is null");
-            dropButton.onClick.AddListener(() => DropItem(_selectedView.Item));
+            displayWindow.HandleDropButtonClicked += DropSelectedItem;
         }
 
         private void OnDestroy()
@@ -37,7 +36,8 @@ namespace UI
                 view.ViewClicked -= HandleViewClicked;
             }
             
-            if (dropButton != null) dropButton.onClick.AddListener(() => DropItem(_selectedView.Item));
+            //if (dropButton != null) dropButton.onClick.AddListener(() => DropItem(_selectedView.Item));
+            displayWindow.HandleDropButtonClicked -= DropSelectedItem;
         }
 
         private void AddView(Item item)
@@ -72,9 +72,9 @@ namespace UI
             displayWindow.ShowWindow();
         }
 
-        private void DropItem(Item item)
+        private void DropSelectedItem()
         {
-            Inventory.Instance.RemoveItem(item);
+            Inventory.Instance.RemoveItem(_selectedView.Item);
         }
     }
 }

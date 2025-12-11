@@ -1,4 +1,6 @@
+using System;
 using System.Threading;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +15,8 @@ public class DisplayWindow : MonoBehaviour
     
     private CancellationTokenSource _cancellationTokenSource;
 
+    public Action HandleDropButtonClicked;
+
     public void Initialize(Sprite image, string itemName, string description)
     {
         this.image.sprite = image;
@@ -20,12 +24,15 @@ public class DisplayWindow : MonoBehaviour
         this.description.text = description;
     }
 
-    public void DropCLicked()
+    public void DropClicked()
     {
         _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(
             destroyCancellationToken,
             Application.exitCancellationToken);
-        feedbacks.Play(_cancellationTokenSource.Token);
+        feedbacks.Play(_cancellationTokenSource.Token, () =>
+        {
+            HandleDropButtonClicked?.Invoke();
+        }).Forget();
     }
     
     public void ShowWindow()
