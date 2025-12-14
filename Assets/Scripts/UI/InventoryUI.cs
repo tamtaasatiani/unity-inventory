@@ -53,7 +53,7 @@ namespace UI
 
         private void RemoveView(Item item)
         {
-            if (item == _selectedView.Item)
+            if (_selectedView != null && item == _selectedView.Item)
             {
                 displayWindow.HideWindow();
                 _selectedView.HideBorder();
