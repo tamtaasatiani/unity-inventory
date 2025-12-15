@@ -18,6 +18,7 @@ An Inventory system complete with UI implemented in Unity.
 # Packages
 Unity packages used by the project
 - Screen Recorder by Unity Technologies Inc | Screenshot and clip recording
+- [UniTask](https://github.com/Cysharp/UniTask) by Cysharp Inc | Used by the Feedbacker
 
 # Assets
 Assets used by this project
